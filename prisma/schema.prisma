@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model rack {
+  id                 String    @id @default(uuid())
+  order              Float     @default(0)
+  rackName           String    @db.VarChar(255)
+  rackCapacity       Decimal   @default(0) @db.Decimal()
+  capacityWiseRank   Float     @default(0)
+  storageCoefficient Float     @default(0)
+  isOccupied         Boolean   @default(false)
+  measurement        String    @db.VarChar(50)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @default(now()) @updatedAt
+  deletedAt          DateTime?
+}
+
+model sku {
+  id          String    @id @default(uuid())
+  skuName     String    @db.VarChar(255)
+  skuCapacity Float     @default(0)
+  measurement String    @db.VarChar(50)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+  deletedAt   DateTime?
+}
