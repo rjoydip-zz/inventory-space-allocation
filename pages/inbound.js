@@ -93,18 +93,22 @@ export default function Inbound() {
       });
   }, []);
 
-  const submitRackOccupyAPI = async (rackName) => {
+  const submitRackOccupyAPI = async (index, rackName) => {
     const rackDetails = rackList.filter(
       (item) => item.rackName.toLowerCase() === rackName.toLowerCase()
     )[0];
-    const data = await fetch(`${rackEndpoint}/${rackDetails.id}`, {
+    await fetch(`${rackEndpoint}/${rackDetails.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ isOccupied: true }),
     }).then((res) => res.json());
-    console.log(data)
     setValue("skuNo", "");
+    const _inboundItem = inboundLists[index];
+    _inboundItem.suggestedPlace = "";
+    _inboundItem.quantity = 0;
     setInboundLists([...inboundLists]);
+    const data = await fetch(rackEndpoint).then((res) => res.json());
+    setRackList(addStorageEfficency(data));
     notify("Rack has been Occupied");
   };
 
@@ -333,7 +337,9 @@ export default function Inbound() {
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
                     className="inline-block px-6 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                    onClick={() => submitRackOccupyAPI(item.suggestedPlace)}
+                    onClick={() =>
+                      submitRackOccupyAPI(index, item.suggestedPlace)
+                    }
                   >
                     Done
                   </button>

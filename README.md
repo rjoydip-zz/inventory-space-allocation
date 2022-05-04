@@ -17,8 +17,9 @@ Disigning and solving inventory space allocation using JavaScript.
 
 ## Local Setup
 
-- Install NPM modules 
-- Create database in MySQL workbench
+- Install NPM modules
+- Create database in MySQL/PgSQL workbench
+- Change the provider according to the database choice in Prisma schama file
 - Run NPM `db:migration` to create tables and schema
 - RUN NPM `db:seed` to seed sample data
 - Run NPM `dev` to run frontend & backend
