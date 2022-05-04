@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

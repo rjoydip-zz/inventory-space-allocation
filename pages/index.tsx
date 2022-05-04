@@ -1,9 +1,12 @@
+
 import Layout from "../components/Layout";
 import Sidebar from "../components/Sidebar";
+
 export default function Index() {
+  
   return (
     <section>
-      <h2>Inventory Space Allocation (Dashboard)</h2>      
+      <div>Inventory Space Allocation (Dashboard)</div>      
     </section>
   );
 }

@@ -1,3 +1,4 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import {
   _getById,
   _create,
@@ -5,7 +6,7 @@ import {
   _updateById,
 } from "../../../utils/db/rack";
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { id },
     body,

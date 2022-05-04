@@ -1,6 +1,6 @@
-const dayjs = require("dayjs");
-const Chance = require("chance");
-const { PrismaClient } = require("@prisma/client");
+import dayjs from 'dayjs';
+import Chance from "chance";
+import { PrismaClient } from "@prisma/client";
 
 const fakeDatasetCount = 5;
 const chance = new Chance();
@@ -54,7 +54,9 @@ const seedSkuData = async () => {
 const run = async () => {
   await seedRacksData();
   await seedSkuData();
+  await prisma.$disconnect();
   console.log("Data seeding complete");
+  process.exit(0);
 };
 
 run()
