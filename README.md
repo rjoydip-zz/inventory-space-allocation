@@ -5,13 +5,13 @@ Disigning and solving inventory space allocation using JavaScript.
 ## Requirement
 
 - Node.js (>=14)
-- MySQL workbench
+- Postgress
 
 ## Technology used
 
 - Next.js framework
 - Prisma
-- MySQL
+- Postgress
 - Taildwind.css
 - Postman/Insomina
 
@@ -51,10 +51,9 @@ npx prisma db push && node prisma/seed.js --skip-generate
 Below things can be done to make it a ready application.
 
 - API improvement
-- Show data on dashboard
-- Need to use table instead of list view
+- Show data on dashboard - **WIP**
+- Need to use table instead of list view - **WIP**
 - Lighthouse score improvement
 - Need some performance optimization
-- Offline mode support
-- Remote/Cloud/NoSQL database use instead of MySQL
+- Remote/Cloud/NoSQL database use instead of MySQL - **Done**
 - git hooks modules
