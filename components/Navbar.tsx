@@ -26,8 +26,10 @@ export default function Navbar(): JSX.Element {
                     <div className="flex-shrink-0">
                       <Image
                         className="h-8 w-8"
-                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                        src="/logo.svg"
                         alt="Workflow"
+                        height={"40px"}
+                        width={"40px"}
                       />
                     </div>
                     <div className="hidden md:block">
