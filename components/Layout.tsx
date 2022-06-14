@@ -1,12 +1,17 @@
 import { Toaster } from "react-hot-toast";
 
-import styles from '../styles/layout.module.css'
+import Navbar from "./Navbar";
 
 export default function Layout({ children }) {
   return (
     <>
-      <main className={styles.main}>{children}</main>
+      <Navbar />
+      <main>
+        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          {children}
+        </div>
+      </main>
       <Toaster />
     </>
-  )
+  );
 }

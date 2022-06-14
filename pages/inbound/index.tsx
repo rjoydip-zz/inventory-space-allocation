@@ -1,12 +1,12 @@
 import * as yup from "yup";
 import dayjs from "dayjs";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Layout from "../components/Layout";
-import Sidebar from "../components/Sidebar";
-import notify from "../components/Toster";
-import { generateUID } from "../utils";
+
+import Layout from "../../components/Layout";
+import notify from "../../components/Toster";
+import { generateUID } from "../../utils";
 
 export default function Inbound() {
   const skuEndpoint = "/api/sku",
@@ -31,7 +31,7 @@ export default function Inbound() {
           /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/,
           {
             message: "Invalid date format",
-          }
+          },
         ),
     })
     .required();
@@ -50,7 +50,7 @@ export default function Inbound() {
 
   const addStorageEfficency = (data) => {
     const _sortedRackList = data.sort(
-      (a, b) => parseFloat(b.rackCapacity) - parseFloat(a.rackCapacity)
+      (a, b) => parseFloat(b.rackCapacity) - parseFloat(a.rackCapacity),
     );
     return _sortedRackList
       .map((item, index) => {
@@ -60,10 +60,10 @@ export default function Inbound() {
         } else {
           if (
             parseFloat(_sortedRackList[index - 1].rackCapacity) ===
-            parseFloat(_item.rackCapacity)
+              parseFloat(_item.rackCapacity)
           ) {
             _item.capacityWiseRank = parseFloat(
-              _sortedRackList[index - 1].capacityWiseRank
+              _sortedRackList[index - 1].capacityWiseRank,
             );
           } else {
             _item.capacityWiseRank =
@@ -75,7 +75,7 @@ export default function Inbound() {
       .map((item) => {
         const _item = item;
         _item.storageCoefficient = parseFloat(
-          (item.capacityWiseRank * 0.3 + item.order * 0.7).toFixed(2)
+          (item.capacityWiseRank * 0.3 + item.order * 0.7).toFixed(2),
         );
         return _item;
       })
@@ -95,14 +95,14 @@ export default function Inbound() {
 
   const submitRackOccupyAPI = async (rackName) => {
     const rackDetails = rackList.filter(
-      (item) => item.rackName.toLowerCase() === rackName.toLowerCase()
+      (item) => item.rackName.toLowerCase() === rackName.toLowerCase(),
     )[0];
     const data = await fetch(`${rackEndpoint}/${rackDetails.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ isOccupied: true }),
     }).then((res) => res.json());
-    console.log(data)
+    console.log(data);
     setValue("skuNo", "");
     setInboundLists([...inboundLists]);
     notify("Rack has been Occupied");
@@ -129,7 +129,7 @@ export default function Inbound() {
     if (e.key === "Enter" && !!_skuNo) {
       const updatedInboundList = inboundLists.map((ibl) => {
         const matchedSku = skuList.filter(
-          (i) => i.skuName.toLowerCase() == _skuNo.toLowerCase()
+          (i) => i.skuName.toLowerCase() == _skuNo.toLowerCase(),
         );
         if (ibl.skuNo == _skuNo && !!matchedSku.length) {
           ibl.quantity += 1;
@@ -138,8 +138,8 @@ export default function Inbound() {
           const matchedSkuDetail = matchedSku[0];
           if (
             parseInt(ibl.quantity) * parseFloat(matchedSkuDetail.skuCapacity) >=
-            (volumetricCapacity / 100) *
-              parseFloat(leastStorageCoefficientRackDetail.rackCapacity)
+              (volumetricCapacity / 100) *
+                parseFloat(leastStorageCoefficientRackDetail.rackCapacity)
           ) {
             ibl.suggestedPlace = leastStorageCoefficientRackDetail.rackName;
           }
@@ -155,7 +155,7 @@ export default function Inbound() {
     const _changeValue = e.target.value;
     if (
       skuList.filter(
-        (i) => i.skuName.toLowerCase() === _changeValue.toLowerCase()
+        (i) => i.skuName.toLowerCase() === _changeValue.toLowerCase(),
       ).length === 0
     ) {
       setError(`inboundLists-${index}-skuNo`, {
@@ -174,14 +174,16 @@ export default function Inbound() {
           ibl.updatedAt = dayjs().format();
         }
         return ibl;
-      })
+      }),
     );
   };
 
   return (
     <section>
       <form>
-        <div className="sticky top-0 bg-white shadow-md mt-4 inline-block rounded-lg">
+        <div
+          className="sticky top-0 bg-white shadow-md mt-4 inline-block rounded-lg"
+        >
           {/* Form section */}
           <div className="flex flex-wrap m-2">
             <div className="w-full md:w-1/3 px-2 mb-6 md:mb-0">
@@ -253,20 +255,22 @@ export default function Inbound() {
           {inboundLists.map((item, index) => (
             <div key={index} className="flex flex-wrap mt-4">
               <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                {index === 0 ? (
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    htmlFor={`inboundLists-${index}-skuNo`}
-                  >
-                    SKU
-                  </label>
-                ) : (
-                  <></>
-                )}
+                {index === 0
+                  ? (
+                    <label
+                      className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                      htmlFor={`inboundLists-${index}-skuNo`}
+                    >
+                      SKU
+                    </label>
+                  )
+                  : (
+                    <></>
+                  )}
                 <span
-                  className={
-                    errors[`inboundLists-${index}-skuNo`] ? "text-red-600" : ""
-                  }
+                  className={errors[`inboundLists-${index}-skuNo`]
+                    ? "text-red-600"
+                    : ""}
                 >
                   {errors[`inboundLists-${index}-skuNo`]?.message
                     ? "SKU Not match"
@@ -283,16 +287,18 @@ export default function Inbound() {
                 />
               </div>
               <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                {index === 0 ? (
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="quantity"
-                  >
-                    Quantity
-                  </label>
-                ) : (
-                  <></>
-                )}
+                {index === 0
+                  ? (
+                    <label
+                      className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="quantity"
+                    >
+                      Quantity
+                    </label>
+                  )
+                  : (
+                    <></>
+                  )}
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="quantity"
@@ -303,16 +309,18 @@ export default function Inbound() {
                 />
               </div>
               <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                {index === 0 ? (
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="suggestedSpace"
-                  >
-                    Suggested Space
-                  </label>
-                ) : (
-                  <></>
-                )}
+                {index === 0
+                  ? (
+                    <label
+                      className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="suggestedSpace"
+                    >
+                      Suggested Space
+                    </label>
+                  )
+                  : (
+                    <></>
+                  )}
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="suggestedSpace"
@@ -323,24 +331,29 @@ export default function Inbound() {
                   onChange={() => void 0}
                 />
               </div>
-              {!!item.suggestedPlace ? (
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                  <div
-                    className={`bg-white w-full ${index === 0 ? "p-4" : "m-2"}`}
-                  ></div>
-                  <button
-                    type="button"
-                    data-mdb-ripple="true"
-                    data-mdb-ripple-color="light"
-                    className="inline-block px-6 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                    onClick={() => submitRackOccupyAPI(item.suggestedPlace)}
-                  >
-                    Done
-                  </button>
-                </div>
-              ) : (
-                <></>
-              )}
+              {!!item.suggestedPlace
+                ? (
+                  <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                    <div
+                      className={`bg-white w-full ${
+                        index === 0 ? "p-4" : "m-2"
+                      }`}
+                    >
+                    </div>
+                    <button
+                      type="button"
+                      data-mdb-ripple="true"
+                      data-mdb-ripple-color="light"
+                      className="inline-block px-6 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                      onClick={() => submitRackOccupyAPI(item.suggestedPlace)}
+                    >
+                      Done
+                    </button>
+                  </div>
+                )
+                : (
+                  <></>
+                )}
             </div>
           ))}
         </div>
@@ -352,7 +365,6 @@ export default function Inbound() {
 Inbound.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <Sidebar />
       {page}
     </Layout>
   );

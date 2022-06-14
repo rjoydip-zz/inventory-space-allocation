@@ -1,14 +1,14 @@
 import * as yup from "yup";
-import * as dayjs from "dayjs";
-import { useState, useEffect } from "react";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiRefreshCcw } from "react-icons/fi";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Layout from "../components/Layout";
-import Sidebar from "../components/Sidebar";
-import Listview from "../components/Listview";
-import notify from "../components/Toster";
-import { generateUID } from "../utils";
+
+import Layout from "../../components/Layout";
+import Listview from "../../components/Listview";
+import notify from "../../components/Toster";
+import { generateUID } from "../../utils";
 
 export default function Sku() {
   const defaultSkuItem = {
@@ -67,7 +67,9 @@ export default function Sku() {
 
   return (
     <section>
-      <div className="sticky top-0 bg-white shadow-md mt-4 inline-block rounded-lg">
+      <div
+        className="sticky top-0 bg-white shadow-md mt-4 inline-block rounded-lg"
+      >
         {/* Form section */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-wrap m-2">
@@ -133,11 +135,14 @@ export default function Sku() {
       </div>
       {skuList.map((item, index) => (
         <Listview key={index}>
-          <div className="select-none cursor-pointer hover:bg-gray-50 flex flex-1 items-center p-4">
+          <div
+            className="select-none cursor-pointer hover:bg-gray-50 flex flex-1 items-center p-4"
+          >
             <div className="flex-1 pl-1">
               <div className="font-medium dark:text-white">{item.skuName}</div>
               <div className="text-gray-600 dark:text-gray-200 text-sm">
-                {item.skuCapacity} {item.measurement}
+                {item.skuCapacity}
+                {item.measurement}
               </div>
             </div>
             <div className="flex flex-row justify-center">
@@ -153,7 +158,6 @@ export default function Sku() {
 Sku.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <Sidebar />
       {page}
     </Layout>
   );
