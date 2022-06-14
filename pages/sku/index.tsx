@@ -2,13 +2,12 @@ import * as yup from "yup";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FiRefreshCcw } from "react-icons/fi";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import Layout from "../../components/Layout";
-import Listview from "../../components/Listview";
 import notify from "../../components/Toster";
 import { generateUID } from "../../utils";
+import SkuList from "./skuList";
 
 export default function Sku() {
   const defaultSkuItem = {
@@ -68,7 +67,7 @@ export default function Sku() {
   return (
     <section>
       <div
-        className="sticky top-0 bg-white shadow-md mt-4 inline-block rounded-lg"
+        className="flex justify-center"
       >
         {/* Form section */}
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -109,7 +108,7 @@ export default function Sku() {
               />
             </div>
             <div>
-              <div className="bg-white w-full m-3 inline-block"></div>
+              <div className="bg-white w-full m-2 inline-block"></div>
               <button
                 type="submit"
                 data-mdb-ripple="true"
@@ -124,33 +123,29 @@ export default function Sku() {
                 type="button"
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
-                className="inline-block px-4 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out disabled:opacity-100"
+                className="inline-block p-1 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out disabled:opacity-100 rounded-full"
                 onClick={() => fetchData()}
               >
-                <FiRefreshCcw />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  />
+                </svg>
               </button>
             </div>
           </div>
         </form>
       </div>
-      {skuList.map((item, index) => (
-        <Listview key={index}>
-          <div
-            className="select-none cursor-pointer hover:bg-gray-50 flex flex-1 items-center p-4"
-          >
-            <div className="flex-1 pl-1">
-              <div className="font-medium dark:text-white">{item.skuName}</div>
-              <div className="text-gray-600 dark:text-gray-200 text-sm">
-                {item.skuCapacity}
-                {item.measurement}
-              </div>
-            </div>
-            <div className="flex flex-row justify-center">
-              <div className="w-10 text-right flex justify-end"></div>
-            </div>
-          </div>
-        </Listview>
-      ))}
+      <SkuList data={skuList} />
     </section>
   );
 }
