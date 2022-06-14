@@ -2,9 +2,9 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import humanizeString from "humanize-string";
 
-import Layout from "../../components/Layout";
-import notify from "../../components/Toster";
-import { constant } from "../../utils";
+import Layout from "../components/Layout";
+import notify from "../components/Toster";
+import { constant } from "../utils";
 
 export default function Rack() {
   const endpoint = "/api/rack";

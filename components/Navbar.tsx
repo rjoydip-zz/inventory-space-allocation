@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Disclosure } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import Link from "next/link";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", current: true },
@@ -23,14 +24,19 @@ export default function Navbar(): JSX.Element {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0">
-                      <Image
-                        className="h-8 w-8"
-                        src="/logo.svg"
-                        alt="Workflow"
-                        height={"40px"}
-                        width={"40px"}
-                      />
+                    <div className="flex-shrink-0 cursor-pointer">
+                      <button
+                        type="button"
+                        onClick={() => window.location.href = "/"}
+                      >
+                        <Image
+                          className="h-8 w-8"
+                          src="/logo.svg"
+                          alt="Workflow"
+                          height={"40px"}
+                          width={"40px"}
+                        />
+                      </button>
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
@@ -59,9 +65,10 @@ export default function Navbar(): JSX.Element {
                     >
                       <span className="sr-only">Open main menu</span>
                       {open
-                        ? (
-                          <XIcon className="block h-6 w-6" aria-hidden="true" />
-                        )
+                        ? <XIcon
+                          className="block h-6 w-6"
+                          aria-hidden="true"
+                        />
                         : (
                           <MenuIcon
                             className="block h-6 w-6"

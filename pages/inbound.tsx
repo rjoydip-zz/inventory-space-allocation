@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import Layout from "../../components/Layout";
-import notify from "../../components/Toster";
-import { generateUID } from "../../utils";
+import Layout from "../components/Layout";
+import notify from "../components/Toster";
+import { generateUID } from "../utils";
 
 export default function Inbound() {
   const skuEndpoint = "/api/sku",
