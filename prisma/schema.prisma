@@ -1,18 +1,19 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  shadowDatabaseUrl      = env("SHADOW_DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model rack {
   id                 String    @id @default(uuid())
   order              Float     @default(0)
   rackName           String    @db.VarChar(255)
-  rackCapacity       Decimal   @default(0) @db.Decimal()
+  rackCapacity       Decimal   @default(0) @db.Decimal
   capacityWiseRank   Float     @default(0)
   storageCoefficient Float     @default(0)
   isOccupied         Boolean   @default(false)
