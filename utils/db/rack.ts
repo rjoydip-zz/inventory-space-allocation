@@ -19,6 +19,22 @@ export const _getAll = async () => {
   });
 };
 
+export const _getbyCount = async () => {
+  return await dbRef.count({
+    where: {
+      isOccupied: false,
+    },
+  });
+};
+
+export const _getCountOfOccupiedRack = async () => {
+  return await dbRef.count({
+    where: {
+      isOccupied: true,
+    },
+  });
+};
+
 export const _create = async (data) => {
   return await dbRef.create({ data });
 };

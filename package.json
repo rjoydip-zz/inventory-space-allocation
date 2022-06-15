@@ -10,7 +10,7 @@
     "db:studio": "npx prisma studio",
     "db:seed": "npx prisma db push --accept-data-loss --skip-generate --force-reset && npx ts-node prisma/seed.ts",
     "db:prod:migrate": "npx prisma migrate deploy --preview-feature",
-    "db:dev:migrate": "npx prisma migrate dev --preview-feature --name inventory-space-allocation --accept-data-loss --skip-generate --skip-seed"
+    "db:dev:migrate": "npx prisma migrate dev --preview-feature --name inventory-space-allocation --skip-generate --skip-seed"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.4",
@@ -24,6 +24,7 @@
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.30.0",
     "react-hot-toast": "^2.2.0",
+    "swr": "^1.3.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

@@ -14,6 +14,12 @@ export const _getAll = async () => {
   return await dbRef.findMany();
 };
 
+export const _getbyCount = async () => {
+  return await dbRef.count({
+    where: {},
+  });
+};
+
 export const _create = async (data) => {
   return await dbRef.create({ data });
 };

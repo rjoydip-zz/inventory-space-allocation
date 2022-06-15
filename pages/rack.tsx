@@ -4,14 +4,13 @@ import humanizeString from "humanize-string";
 
 import Layout from "../components/Layout";
 import notify from "../components/Toster";
-import { constant } from "../utils";
+import { constant, fetcher } from "../utils";
 
 export default function Rack() {
   const endpoint = "/api/rack";
   const [racks, setRacks] = useState([]);
-
   const fetchData = () => {
-    fetch(endpoint)
+    fetcher(endpoint)
       .then((res) => res.json())
       .then((data) => setRacks(data));
     notify("Rack Data Synced");
